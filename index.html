@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webyverse Domain Intel</title>
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            /* Core Theme */
+            --body-bg: #f0f2f5; --container-bg: #ffffff; --chat-bg: #f8f9fa;
+            --input-bg: #ffffff; --input-border: #ced4da; --text-color: #212529;
+            --text-color-secondary: #6c757d; --link-color: #007bff; --pre-bg: #e9ecef;
+            --pre-border: #dcdcdc; --heading-color: #333; --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-radius: 8px; --scrollbar-thumb: #ced4da; --scrollbar-track: var(--chat-bg);
+            /* Messages */
+            --user-msg-bg: #0084ff; --user-msg-text: #ffffff; --bot-msg-bg: #e4e6eb;
+            --bot-msg-text: #050505;
+            /* Main Button */
+            --button-bg: #007bff; --button-text: #ffffff; --button-hover-bg: #0056b3;
+            --button-disabled-bg: #6c757d;
+            /* Theme Switch */
+            --switch-bg: #ccc; --switch-slider-bg: white; --switch-slider-checked-bg: #007bff;
+            /* Custom Clear History Button */
+            --clear-btn-bg: #007bff; --clear-btn-text: #ffffff; --clear-btn-hover-bg: #0056b3;
+            --clear-btn-border: var(--clear-btn-bg); --clear-btn-hover-border: var(--clear-btn-hover-bg);
+        }
+        body.dark-theme {
+            --body-bg: #121212; --container-bg: #1e1e1e; --chat-bg: #2a2a2a;
+            --input-bg: #2a2a2a; --input-border: #444; --text-color: #e4e6eb;
+            --text-color-secondary: #b0b3b8; --link-color: #4dabf7; --pre-bg: #333;
+            --pre-border: #555; --bot-msg-bg: #3a3b3c; --bot-msg-text: #e4e6eb;
+            --button-disabled-bg: #495057; --heading-color: #e4e6eb;
+            --shadow-color: rgba(255, 255, 255, 0.05); --switch-bg: #555;
+            --switch-slider-bg: #ccc; --scrollbar-thumb: #555;
+        }
+        /* --- General, Layout, Controls, Chat, Input, History, Buttons Styles --- */
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: var(--body-bg); color: var(--text-color); margin: 0; padding: 15px; transition: background-color 0.3s, color 0.3s; }
+        #app-container { background-color: var(--container-bg); padding: 30px; padding-top: 65px; border-radius: var(--border-radius); box-shadow: 0 4px 12px var(--shadow-color); width: 100%; max-width: 750px; display: flex; flex-direction: column; height: 85vh; max-height: 800px; position: relative; overflow: hidden; }
+        h1 { text-align: center; color: var(--heading-color); margin: 0 0 20px 0; font-weight: 600; font-size: 1.8rem; }
+        #app-logo { position: absolute; top: 18px; left: 25px; width: 28px; height: 28px; color: var(--text-color-secondary); opacity: 0.8; z-index: 10; }
+        #top-controls-wrapper { position: absolute; top: 18px; right: 25px; display: flex; align-items: center; gap: 15px; z-index: 10; }
+        .theme-switch-wrapper { position: relative; top: auto; right: auto; }
+        .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; } .theme-switch input { opacity: 0; width: 0; height: 0; } .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--switch-bg); transition: .4s; border-radius: 26px; } .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: var(--switch-slider-bg); transition: .4s; border-radius: 50%; background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23333" viewBox="0 0 16 16"%3E%3Cpath d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707z"/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: center center; background-size: 12px 12px; } input:checked + .slider { background-color: var(--switch-slider-checked-bg); } input:focus + .slider { box-shadow: 0 0 1px var(--switch-slider-checked-bg); } input:checked + .slider:before { transform: translateX(24px); background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16"%3E%3Cpath d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/%3E%3C/svg%3E'); }
+        #download-chat-button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 0.9em; font-weight: 500; cursor: pointer; background-color: var(--button-bg); color: var(--button-text); border: 1px solid var(--button-bg); border-radius: var(--border-radius, 8px); transition: background-color 0.2s ease, border-color 0.2s ease; white-space: nowrap; } #download-chat-button:hover { background-color: var(--button-hover-bg); border-color: var(--button-hover-bg); } #download-chat-button svg { width: 1em; height: 1em; vertical-align: middle; }
+        #chat-window { flex-grow: 1; overflow-y: auto; border: 1px solid var(--input-border); padding: 15px; margin-bottom: 15px; background-color: var(--chat-bg); border-radius: var(--border-radius); scroll-behavior: smooth; word-wrap: break-word; } #chat-window::-webkit-scrollbar { width: 8px; } #chat-window::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 4px; } #chat-window::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 4px; border: 2px solid var(--scrollbar-track); }
+        .message { margin-bottom: 12px; padding: 10px 15px; border-radius: 18px; line-height: 1.4; max-width: 85%; box-shadow: 0 1px 2px rgba(0,0,0,0.08); clear: both; } .user-message { background-color: var(--user-msg-bg); color: var(--user-msg-text); float: right; margin-left: auto; } .bot-message { background-color: var(--bot-msg-bg); color: var(--bot-msg-text); float: left; margin-right: auto; } .bot-message strong { color: var(--link-color); font-weight: 600; } .bot-message pre { background-color: var(--pre-bg); border: 1px solid var(--pre-border); padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; white-space: pre-wrap; word-wrap: break-word; margin: 8px 0; color: var(--text-color); } .bot-message pre::-webkit-scrollbar { height: 6px; } .bot-message pre::-webkit-scrollbar-track { background: var(--pre-border); border-radius: 3px;} .bot-message pre::-webkit-scrollbar-thumb { background-color: var(--text-color-secondary); border-radius: 3px; } .loading-message { font-style: italic; text-align: left; }
+        #input-area { display: flex; margin-bottom: 15px; } #domain-input { flex-grow: 1; padding: 12px 15px; border: 1px solid var(--input-border); border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); font-size: 1rem; background-color: var(--input-bg); color: var(--text-color); transition: border-color 0.2s, box-shadow 0.2s; } #domain-input:focus { outline: none; border-color: var(--button-bg); box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); } #submit-button { padding: 12px 20px; border: 1px solid var(--button-bg); background-color: var(--button-bg); color: var(--button-text); cursor: pointer; border-radius: 0 var(--border-radius) var(--border-radius) 0; font-size: 1rem; font-weight: 500; transition: background-color 0.2s ease, border-color 0.2s ease; white-space: nowrap; } #submit-button:hover:not(:disabled) { background-color: var(--button-hover-bg); border-color: var(--button-hover-bg); } #submit-button:disabled { background-color: var(--button-disabled-bg); border-color: var(--button-disabled-bg); cursor: not-allowed; opacity: 0.7; }
+        #history-area { border-top: 1px solid var(--input-border); padding-top: 10px; flex-shrink: 0; } #history-area h4 { margin: 0 0 8px 0; font-size: 0.9rem; font-weight: 600; color: var(--text-color-secondary); } #history-list { list-style: none; padding: 0; margin: 0 0 5px 0; max-height: 80px; overflow-y: auto; font-size: 0.9em; } #history-list::-webkit-scrollbar { width: 6px; } #history-list::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 3px; } #history-list::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb); border-radius: 3px;} #history-list li { margin-bottom: 5px; padding: 2px 0; } #history-list a { color: var(--link-color); text-decoration: none; cursor: pointer; } #history-list a:hover { text-decoration: underline; } #history-list .history-placeholder { color: var(--text-color-secondary); font-style: italic; }
+        #clear-history-button { display: inline-block; opacity: 1; cursor: pointer; pointer-events: auto; font-size: 0.85em; font-weight: 500; padding: 5px 12px; margin-top: 8px; background-color: var(--clear-btn-bg); color: var(--clear-btn-text); border: 1px solid var(--clear-btn-border); border-radius: var(--border-radius, 8px); white-space: nowrap; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease; } #clear-history-button:hover:not(:disabled) { background-color: var(--clear-btn-hover-bg); border-color: var(--clear-btn-hover-border); color: var(--clear-btn-text); } #clear-history-button:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; background-color: var(--clear-btn-bg); border-color: var(--clear-btn-border); color: var(--clear-btn-text); }
+        @media (max-width: 600px) { body { padding: 10px; } #app-container { padding: 20px; padding-top: 60px; height: 90vh; max-height: none; } h1 { font-size: 1.5rem; margin-bottom: 15px; margin-top: 0; } #app-logo { top: 15px; left: 20px; width: 24px; height: 24px; } .message { max-width: 90%; } #top-controls-wrapper { top: 15px; right: 15px; gap: 10px; } #download-chat-button { padding: 5px 10px; font-size: 0.85em; } #history-area { margin-top: 10px; } #history-list { max-height: 60px; } }
+
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <svg id="app-logo" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" title="Webyverse Domain Intel Logo">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+
+        <div id="top-controls-wrapper">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-checkbox" title="Toggle theme">
+                    <input type="checkbox" id="theme-checkbox" aria-label="Toggle Dark Mode"/>
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <button id="download-chat-button" title="Download Chat Transcript">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+                <span>Download</span>
+            </button>
+        </div>
+
+        <h1>Webyverse Domain Intel</h1>
+
+        <div id="chat-window">
+             <div class="message bot-message">Hi there! Enter a domain (e.g., example.com) for analysis.</div>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="domain-input" placeholder="Enter domain name..." aria-label="Domain Name Input">
+            <button id="submit-button" aria-label="Analyze Domain">Analyze</button>
+        </div>
+
+        <div id="history-area">
+            <h4>Search History</h4>
+            <ul id="history-list">
+                </ul>
+            <button id="clear-history-button" title="Clear search history">Clear History</button>
+        </div>
+
+    </div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Get DOM Elements ---
+            const downloadChatButton = document.getElementById('download-chat-button');
+            const themeToggle = document.getElementById('theme-checkbox');
+            const bodyElement = document.body;
+            const chatWindow = document.getElementById('chat-window');
+            const domainInput = document.getElementById('domain-input');
+            const submitButton = document.getElementById('submit-button');
+            const historyListElement = document.getElementById('history-list');
+            const clearHistoryButton = document.getElementById('clear-history-button');
+            let loadingMessageDiv = null;
+
+            // --- Constants ---
+            const MAX_HISTORY_ITEMS = 15;
+            const HISTORY_STORAGE_KEY = 'domainAnalyzerHistory';
+
+            // --- Utility Functions ---
+            function escapeHtml(unsafe) {
+               if (typeof unsafe !== 'string') return "";
+               return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            }
+            function scrollToBottom(element) { element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' }); }
+
+            // --- Theme Switching Logic ---
+            function applyTheme(theme) { if (theme === 'dark') { bodyElement.classList.add('dark-theme'); themeToggle.checked = true; } else { bodyElement.classList.remove('dark-theme'); themeToggle.checked = false; } }
+            function loadTheme() { const savedTheme = localStorage.getItem('theme'); if (savedTheme === 'light') { applyTheme('light'); } else { applyTheme('dark'); if (!savedTheme) { localStorage.setItem('theme', 'dark'); } } }
+            function handleThemeToggle() { const newTheme = themeToggle.checked ? 'dark' : 'light'; applyTheme(newTheme); localStorage.setItem('theme', newTheme); }
+
+            // --- History Logic ---
+            function getHistory() { const storedHistory = localStorage.getItem(HISTORY_STORAGE_KEY); try { return storedHistory ? JSON.parse(storedHistory) : []; } catch (e) { console.error("Error parsing history:", e); localStorage.removeItem(HISTORY_STORAGE_KEY); return []; } }
+            function saveHistory(historyArray) { try { localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(historyArray)); } catch (e) { console.error("Error saving history:", e); } }
+            function addToHistory(domain) { if (!domain || typeof domain !== 'string') return; let history = getHistory(); history = history.filter(item => item.toLowerCase() !== domain.toLowerCase()); history.unshift(domain); if (history.length > MAX_HISTORY_ITEMS) { history = history.slice(0, MAX_HISTORY_ITEMS); } saveHistory(history); displayHistory(); }
+            function displayHistory() { const history = getHistory(); historyListElement.innerHTML = ''; if (history.length === 0) { const p = document.createElement('li'); p.classList.add('history-placeholder'); p.textContent = 'No history yet.'; historyListElement.appendChild(p); clearHistoryButton.disabled = true; } else { clearHistoryButton.disabled = false; history.forEach(domain => { const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#'; a.textContent = domain; a.title = `Analyze ${domain} again`; a.addEventListener('click', (e) => { e.preventDefault(); domainInput.value = domain; handleSubmission(); }); li.appendChild(a); historyListElement.appendChild(li); }); } }
+            function clearHistory() { localStorage.removeItem(HISTORY_STORAGE_KEY); displayHistory(); }
+
+            // --- Chat & Analysis Logic ---
+            function addMessage(text, type = 'bot', isHtml = false) { const div = document.createElement('div'); div.classList.add('message', type + '-message'); if (isHtml) { const safeHtml = text.replace(/<script.*?>.*?<\/script>/gi, '').replace(/on\w+\s*=\s*".*?"/gi, ''); div.innerHTML = safeHtml; } else { div.textContent = text; } chatWindow.appendChild(div); scrollToBottom(chatWindow); return div; }
+            function showLoading(domain) { hideLoading(); loadingMessageDiv = document.createElement('div'); loadingMessageDiv.classList.add('message', 'bot-message', 'loading-message'); loadingMessageDiv.textContent = `Analyzing ${escapeHtml(domain)}... Please wait.`; chatWindow.appendChild(loadingMessageDiv); scrollToBottom(chatWindow); }
+            function hideLoading() { if (loadingMessageDiv && loadingMessageDiv.parentNode === chatWindow) { chatWindow.removeChild(loadingMessageDiv); } loadingMessageDiv = null; }
+            function formatJsonForPre(data) { if (typeof data === 'string') { return escapeHtml(data); } try { const jsonString = JSON.stringify(data, null, 2); return escapeHtml(jsonString); } catch (e) { console.error("Error formatting JSON:", e); return escapeHtml("Could not format data."); } }
+
+            // --- FINAL displayResults Function (Displays Builtwith, Ecom, Server) ---
+            function displayResults(results) {
+                 console.log("Received results:", results); // For debugging
+                 let htmlContent = '';
+
+                 if (results.error && typeof results.error === 'string' && !results.domain) {
+                     htmlContent += `<strong>Fatal Error:</strong> ${escapeHtml(results.error)}`;
+                     addMessage(htmlContent, 'bot', true); return;
+                 }
+
+                 const domainName = results.domain ?? 'N/A';
+                 htmlContent += `Report for: <strong>${escapeHtml(domainName)}</strong><br><br>`;
+
+                 // --- Basic & Derived Info ---
+                 htmlContent += `<strong>CMS (Basic Scan):</strong> ${escapeHtml(results.cms ?? 'Unknown')}<br>`;
+                 htmlContent += `<strong>E-commerce Platform:</strong> ${escapeHtml(results.ecommerce_platform ?? 'Unknown / Error')}<br>`;
+                 htmlContent += `<strong>Web Server:</strong> ${escapeHtml(results.web_server ?? 'Unknown')}<br>`;
+                 htmlContent += `<strong>Hosting Provider:</strong> ${escapeHtml(results.hosting_provider ?? 'Unknown')}<br>`;
+                 htmlContent += `<strong>Hosting Type Guess:</strong> ${escapeHtml(results.hosting_type ?? 'Unknown')}<br>`;
+                 if (results.hosting_type_note) { htmlContent += `<small><em>${escapeHtml(results.hosting_type_note)}</em></small><br>`; }
+                 htmlContent += `<strong>Email Provider:</strong> ${escapeHtml(results.email_provider ?? 'Unknown')}<br>`;
+
+                 // --- DNS Info ---
+                 htmlContent += `<strong>Nameservers:</strong><br><pre>${results.nameservers ? formatJsonForPre(results.nameservers) : 'N/A'}</pre>`;
+
+                 // --- IP Info ---
+                 htmlContent += `<strong>IP Information:</strong><br>`;
+                 if (results.ip_info && Array.isArray(results.ip_info) && results.ip_info.length > 0) {
+                     results.ip_info.forEach(ipInfo => { htmlContent += `<pre>IP: ${escapeHtml(ipInfo?.ip ?? 'N/A')}\nHostname: ${escapeHtml(ipInfo?.hostname ?? 'N/A')}\nISP/Org: ${escapeHtml(ipInfo?.asn_description ?? ipInfo?.isp ?? 'N/A')}\nRange: ${escapeHtml(ipInfo?.ip_range ?? 'N/A')}\nIP Name: ${escapeHtml(ipInfo?.ip_name ?? 'N/A')}\nPotentially Shared Hint: ${ipInfo?.potentially_shared ? 'Yes (rDNS)' : 'No/Unclear'}</pre>`; });
+                 } else { htmlContent += '<pre>No A/AAAA records or IP lookup failed.</pre>'; }
+
+                 // --- WHOIS Info ---
+                 htmlContent += `<strong>WHOIS Highlights:</strong><br>`;
+                 if (typeof results.whois === 'object' && results.whois !== null) { const w = results.whois; const gd = (df) => { const dv = Array.isArray(df)?df[0]:df; return dv?String(dv).split('T')[0]:'N/A';}; const cr=gd(w.creation_date); const ex=gd(w.expiration_date); const up=gd(w.updated_date); const st=Array.isArray(w.status)?w.status.join(', '):(w.status??'N/A'); htmlContent += `<pre>Registrar: ${escapeHtml(w.registrar??'N/A')}\nStatus: ${escapeHtml(st)}\nCreated: ${escapeHtml(cr)}\nExpires: ${escapeHtml(ex)}\nUpdated: ${escapeHtml(up)}\nRegistrant Org: ${escapeHtml(w.org??'REDACTED/N/A')}</pre>`; htmlContent += `<small><em>Note: Full WHOIS data may vary.</em></small><br>`; }
+                 else { htmlContent += `<pre>${escapeHtml(results.whois ?? 'Error/N/A')}</pre>`; }
+
+                // --- Builtwith Technologies ---
+                htmlContent += `<br><strong>Technology Stack (Builtwith):</strong><br>`;
+                if (results.builtwith_info && typeof results.builtwith_info === 'object') {
+                    if (results.builtwith_info.error) { htmlContent += `<pre>Error: ${escapeHtml(results.builtwith_info.error)}</pre>`; }
+                    else if (results.builtwith_info.info) { htmlContent += `<pre>${escapeHtml(results.builtwith_info.info)}</pre>`; }
+                    else {
+                        const techEntries = Object.entries(results.builtwith_info);
+                        if (techEntries.length > 0) {
+                            htmlContent += '<ul>';
+                            techEntries.forEach(([category, techList]) => {
+                                if (Array.isArray(techList) && techList.length > 0) {
+                                     const formattedCategory = category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                     htmlContent += `<li><strong>${escapeHtml(formattedCategory)}:</strong> ${techList.map(t => escapeHtml(t)).join(', ')}</li>`;
+                                }
+                            });
+                            htmlContent += '</ul>';
+                        } else { htmlContent += '<pre>No specific technologies identified by Builtwith.</pre>'; }
+                    }
+                } else { htmlContent += '<pre>N/A or check failed.</pre>'; }
+
+                // --- Robots.txt & Sitemap ---
+                htmlContent += `<strong>Robots.txt & Sitemap:</strong><br>`;
+                if (results.robots_sitemap) { htmlContent += `<pre>Robots.txt Found: ${results.robots_sitemap.robots_txt_exists ? 'Yes' : 'No'}\nSitemap Found: ${results.robots_sitemap.sitemap_xml_exists ? 'Yes' : 'No'}`; if (results.robots_sitemap.sitemap_urls && results.robots_sitemap.sitemap_urls.length > 0) { htmlContent += '\nSitemap URL(s):'; results.robots_sitemap.sitemap_urls.forEach(url => { htmlContent += `\n  - ${escapeHtml(url)}`; }); } htmlContent += '</pre>'; }
+                else { htmlContent += '<pre>N/A or check failed.</pre>'; }
+
+                // --- Security Headers ---
+                htmlContent += `<strong>Common Security Headers:</strong><br>`;
+                if (results.security_headers && typeof results.security_headers === 'object') {
+                      if (results.security_headers.error) { htmlContent += `<pre>Error: ${escapeHtml(results.security_headers.error)}</pre>`; }
+                      else { htmlContent += '<pre>'; let headerCount = 0;
+                           for (const header in results.security_headers) {
+                                if (header !== 'summary') { const value = results.security_headers[header]; htmlContent += `${escapeHtml(header)}: ${value ? escapeHtml(value) : 'Not Found'}\n`; if (value) headerCount++; }
+                           }
+                           const summary = results.security_headers.summary ? escapeHtml(results.security_headers.summary) : `${headerCount} common header(s) found/checked.`;
+                           if (Object.keys(results.security_headers).length > 1 || headerCount > 0) { htmlContent += '\n'; }
+                           htmlContent += `Summary: ${summary}`; htmlContent += '</pre>';
+                      }
+                 } else { htmlContent += '<pre>N/A or check failed.</pre>'; }
+
+                 // --- Contact Info ---
+                 htmlContent += `<strong>Contact Info Found on Homepage:</strong><br>`;
+                  if (results.contact_info && typeof results.contact_info === 'object') {
+                       if (results.contact_info.error) { htmlContent += `<pre>Error: ${escapeHtml(results.contact_info.error)}</pre>`; }
+                       else { const emails = results.contact_info.emails || []; const links = results.contact_info.social_links || [];
+                            if (emails.length === 0 && links.length === 0) { htmlContent += '<pre>No public emails or social links found on homepage.</pre>'; }
+                            else { htmlContent += '<ul>'; if (emails.length > 0) { htmlContent += `<li>Emails: ${emails.map(e => escapeHtml(e)).join(', ')}</li>`; } if (links.length > 0) { htmlContent += `<li>Social Links: ${links.map(l => `<a href="${escapeHtml(l)}" target="_blank" style="color: var(--link-color);">${escapeHtml(l)}</a>`).join(', ')}</li>`; } htmlContent += '</ul>'; }
+                       }
+                  } else { htmlContent += '<pre>N/A or check failed.</pre>'; }
+
+                 // --- Archive.org History ---
+                 htmlContent += `<strong>Archive.org History:</strong><br>`;
+                  if (results.archive_info && typeof results.archive_info === 'object') {
+                       if (results.archive_info.error) { htmlContent += `<pre>Error: ${escapeHtml(results.archive_info.error)}</pre>`; }
+                       else if (results.archive_info.info) { htmlContent += `<pre>${escapeHtml(results.archive_info.info)}</pre>`; }
+                       else { htmlContent += `<pre>First Capture: ${escapeHtml(results.archive_info.first_capture ?? 'N/A')}\nLast Capture: ${escapeHtml(results.archive_info.last_capture ?? 'N/A')}</pre>`; }
+                  } else { htmlContent += '<pre>N/A or check failed.</pre>'; }
+
+                 // --- Estimates (Placeholders) ---
+                 htmlContent += `<br><strong>Revenue Estimate:</strong> ${escapeHtml(results.potential_revenue ?? 'N/A')}<br>`;
+                 htmlContent += `<strong>Storage Estimate:</strong> ${escapeHtml(results.estimated_storage ?? 'N/A')}<br>`;
+
+                 addMessage(htmlContent, 'bot', true);
+
+                 // Add to history only on success
+                 if (!results.error && domainName !== 'N/A') { addToHistory(domainName); }
+             }
+             // --- END: FINAL displayResults Function ---
+
+
+            async function handleSubmission() { const domain = domainInput.value.trim(); if (!domain) { addMessage("Please enter a valid domain name.", 'bot'); return; } addMessage(domain, 'user'); domainInput.value = ''; domainInput.focus(); submitButton.disabled = true; submitButton.textContent = 'Analyzing...'; showLoading(domain); try { const formData = new FormData(); formData.append('domain', domain); const response = await fetch('/analyze', { method: 'POST', body: formData }); hideLoading(); if (!response.ok) { let errorMsg = `Analysis failed. Server responded with status: ${response.status} ${response.statusText}`; try { const errData = await response.json(); errorMsg = `Analysis failed: ${escapeHtml(errData.error || JSON.stringify(errData))}`; } catch (e) { console.warn("Could not parse error response as JSON.", e); } console.error("Server Error Response:", response); addMessage(errorMsg, 'bot'); } else { const results = await response.json(); displayResults(results); } } catch (error) { hideLoading(); console.error('Fetch API Error:', error); addMessage(`Network error or backend connection issue: ${escapeHtml(error.message)}`, 'bot'); } finally { submitButton.disabled = false; submitButton.textContent = 'Analyze'; } }
+
+            // --- Download Chat Transcript Function ---
+            function downloadChatTranscript() { console.log("Download clicked"); const messages = chatWindow.querySelectorAll('.message'); if (messages.length <= 1) { const firstMsg = messages[0]?.textContent || ''; if (messages.length === 0 || firstMsg.startsWith("Hi there!")) { alert("Chat is effectively empty, nothing to download."); return; } } let transcript = `Webyverse Domain Intel Chat Transcript\nDownloaded: ${new Date().toLocaleString()}\n========================================\n\n`; messages.forEach(message => { let prefix = "Bot: "; if (message.classList.contains('user-message')) { prefix = "User: "; } else if (message.classList.contains('loading-message')) { prefix = "[Status]: "; } else if (message.textContent.startsWith("Hi there!")) { /* return; */ } let content = ''; Array.from(message.childNodes).forEach(node => { if (node.nodeType === 3) { content += node.textContent; } else if (node.nodeType === 1) { if (node.tagName === 'PRE') { content += `\n---\n${node.textContent}\n---\n`; } else if (node.tagName === 'BR') { content += '\n'; } else { content += node.textContent; } } }); const trimmedContent = content.trim(); if (trimmedContent) { transcript += prefix + trimmedContent + "\n\n"; } }); transcript += `========================================\nEnd of Transcript`; const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); const filename = `webyverse_chat_${timestamp}.txt`; const blob = new Blob([transcript], { type: 'text/plain;charset=utf-8' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+
+            // --- Event Listeners Setup ---
+            downloadChatButton.addEventListener('click', downloadChatTranscript);
+            themeToggle.addEventListener('change', handleThemeToggle);
+            submitButton.addEventListener('click', handleSubmission);
+            clearHistoryButton.addEventListener('click', clearHistory);
+            domainInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') { event.preventDefault(); handleSubmission(); } });
+
+            // --- Initial Page Load Actions ---
+            loadTheme();
+            displayHistory();
+
+        }); // End of DOMContentLoaded listener
+    </script>
+</body>
+</html>
